@@ -57,15 +57,24 @@
                     const contentEncoded = item.querySelector('content\\:encoded')?.textContent || '';
                     const description = item.querySelector('description')?.textContent || '';
 
-                    // Regex robusto: pega qualquer src="URL" dentro do content:encoded ou description
+                    // Função para decodificar entidades HTML
+                    function decodeHtml(html) {
+                        const txt = document.createElement('textarea');
+                        txt.innerHTML = html;
+                        return txt.value;
+                    }
+
+                    const decodedDescription = decodeHtml(description);
+
+                    // Regex robusto
                     let imgMatch = contentEncoded.match(/<img[^>]+src="([^">]+)"/);
                     if (!imgMatch) {
-                        imgMatch = description.match(/<img[^>]+src="([^">]+)"/);
+                        imgMatch = decodedDescription.match(/<img[^>]+src="([^">]+)"/);
                     }
                     const imageUrl = imgMatch ? imgMatch[1] : '';
 
                     return { title, imageUrl };
-                }).filter(n => n.imageUrl); // só mantém notícias com imagem
+                }).filter(n => n.imageUrl);
 
                 if (news.length === 0) {
                     document.getElementById('news-title').textContent = 'Nenhuma notícia com imagem encontrada.';
