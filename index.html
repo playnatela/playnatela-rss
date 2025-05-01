@@ -11,63 +11,74 @@
             color: white;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-end;
             align-items: center;
             height: 100vh;
+            overflow: hidden;
         }
         img {
             max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
+            max-height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
-        #title {
-            position: fixed;
+        .title {
+            position: absolute;
             bottom: 0;
             width: 100%;
-            background-color: rgba(0,0,0,0.7);
             text-align: center;
-            padding: 10px;
+            background: rgba(0,0,0,0.7);
+            padding: 20px;
             font-size: 2em;
-            white-space: normal;
-            word-wrap: break-word;
-            max-width: 80%;
-            margin: 0 auto;
         }
     </style>
 </head>
 <body>
-    <img id="newsImage" src="" alt="Imagem da Notícia">
-    <div id="title"></div>
+    <img id="news-image" src="" alt="Imagem da Notícia">
+    <div class="title" id="news-title"></div>
 
     <script>
+        const rssUrl = 'https://raw.githubusercontent.com/playnatela/playnatela-rss/main/webterra_rss_v2.xml';
+        let news = [];
         let currentIndex = 0;
-        let items = [];
 
         async function fetchRSS() {
-            const response = await fetch('webterra_rss_v2.xml');
-            const text = await response.text();
-            const parser = new DOMParser();
-            const xml = parser.parseFromString(text, 'text/xml');
-            items = Array.from(xml.querySelectorAll('item'));
-            showNextItem();
-            setInterval(showNextItem, 15000);
+            try {
+                const response = await fetch(rssUrl);
+                const text = await response.text();
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(text, 'application/xml');
+                const items = xml.querySelectorAll('item');
+
+                news = Array.from(items).map(item => {
+                    const title = item.querySelector('title').textContent;
+                    const contentEncoded = item.querySelector('content\\:encoded')?.textContent || '';
+                    const imgMatch = contentEncoded.match(/<img[^>]+src="([^">]+)"/);
+                    const imageUrl = imgMatch ? imgMatch[1] : '';
+                    return { title, imageUrl };
+                }).filter(n => n.imageUrl); // filtra apenas notícias com imagem
+
+                if (news.length === 0) {
+                    document.getElementById('news-title').textContent = 'Nenhuma notícia com imagem encontrada.';
+                    return;
+                }
+
+                showNews();
+            } catch (error) {
+                document.getElementById('news-title').textContent = 'Erro ao carregar RSS.';
+                console.error(error);
+            }
         }
 
-        function showNextItem() {
-            if (items.length === 0) return;
+        function showNews() {
+            const { title, imageUrl } = news[currentIndex];
+            document.getElementById('news-title').textContent = title;
+            document.getElementById('news-image').src = imageUrl;
 
-            const item = items[currentIndex];
-            const title = item.querySelector('title').textContent;
-            const contentEncoded = item.querySelector('content\\:encoded').textContent;
-            const parser = new DOMParser();
-            const html = parser.parseFromString(contentEncoded, 'text/html');
-            const img = html.querySelector('img');
-            const imgSrc = img ? img.src : '';
-
-            document.getElementById('newsImage').src = imgSrc;
-            document.getElementById('title').textContent = title;
-
-            currentIndex = (currentIndex + 1) % items.length;
+            currentIndex = (currentIndex + 1) % news.length;
+            setTimeout(showNews, 15000);
         }
 
         fetchRSS();
