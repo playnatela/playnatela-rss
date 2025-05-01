@@ -17,8 +17,8 @@
             overflow: hidden;
         }
         img {
-            max-width: 100%;
-            max-height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             position: absolute;
             top: 0;
@@ -52,26 +52,31 @@
                 const xml = parser.parseFromString(text, 'application/xml');
                 const items = xml.querySelectorAll('item');
 
+                function decodeHtml(html) {
+                    const txt = document.createElement('textarea');
+                    txt.innerHTML = html;
+                    return txt.value;
+                }
+
                 news = Array.from(items).map(item => {
                     const title = item.querySelector('title').textContent;
-                    const contentEncoded = item.querySelector('content\\:encoded')?.textContent || '';
-                    const description = item.querySelector('description')?.textContent || '';
 
-                    // Função para decodificar entidades HTML
-                    function decodeHtml(html) {
-                        const txt = document.createElement('textarea');
-                        txt.innerHTML = html;
-                        return txt.value;
-                    }
+                    const contentEncoded = item.querySelector('content\\:encoded')?.textContent ||
+                                           item.getElementsByTagName('content:encoded')[0]?.textContent || '';
 
-                    const decodedDescription = decodeHtml(description);
+                    let imageUrl = '';
+                    let imgMatch = contentEncoded.match(/<img[^>]*src=["']([^"']+)["']/i);
 
-                    // Regex robusto
-                    let imgMatch = contentEncoded.match(/<img[^>]+src="([^">]+)"/);
+                    // Se não achou no content:encoded, tenta no description decodificado
                     if (!imgMatch) {
-                        imgMatch = decodedDescription.match(/<img[^>]+src="([^">]+)"/);
+                        const rawDescription = item.querySelector('description')?.textContent || '';
+                        const decodedDescription = decodeHtml(rawDescription);
+                        imgMatch = decodedDescription.match(/<img[^>]*src=["']([^"']+)["']/i);
                     }
-                    const imageUrl = imgMatch ? imgMatch[1] : '';
+
+                    if (imgMatch) {
+                        imageUrl = imgMatch[1];
+                    }
 
                     return { title, imageUrl };
                 }).filter(n => n.imageUrl);
