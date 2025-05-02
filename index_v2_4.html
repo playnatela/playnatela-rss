@@ -32,25 +32,36 @@
             height: 100%;
             background: url('moldura.png') no-repeat center center;
             background-size: contain;
+            z-index: 3;
+        }
+        #title-background {
+            position: absolute;
+            bottom: 100px; /* sobe o texto para dentro do meio vazado */
+            width: 80%;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.5); /* half-shade escuro */
+            border-radius: 10px;
             z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         #news-title {
-            position: absolute;
-            bottom: 60px; /* ajustado para o espaço visível */
-            width: 80%;   /* ajustado para não ultrapassar os limites */
-            text-align: center;
-            font-size: 2em;
+            font-size: 2.6em; /* +30% de aumento sobre ~2em */
             font-weight: bold;
             color: white;
-            z-index: 3;
-            padding: 0 10px;
+            text-align: center;
+            z-index: 4;
+            padding: 0 20px;
         }
     </style>
 </head>
 <body>
     <img id="news-image" src="" alt="Imagem da Notícia">
+    <div id="title-background">
+        <div id="news-title"></div>
+    </div>
     <div id="overlay"></div>
-    <div id="news-title"></div>
 
     <script>
         const rssUrl = 'https://raw.githubusercontent.com/playnatela/playnatela-rss/main/webterra_rss_v2_4.xml';
