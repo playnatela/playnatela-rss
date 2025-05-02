@@ -33,26 +33,25 @@
             background: url('moldura.png') no-repeat center center;
             background-size: contain;
             z-index: 3;
+            pointer-events: none;
         }
         #title-background {
             position: absolute;
-            bottom: 100px; /* sobe o texto para dentro do meio vazado */
-            width: 80%;
-            height: 60px;
+            bottom: 100px; /* sobe para dentro do espaço vazado */
+            left: 0;
+            width: 100%;
+            padding: 20px 40px; /* padding vertical e horizontal */
             background: rgba(0, 0, 0, 0.5); /* half-shade escuro */
-            border-radius: 10px;
             z-index: 2;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            box-sizing: border-box;
         }
         #news-title {
-            font-size: 2.6em; /* +30% de aumento sobre ~2em */
+            font-size: 2.6em; /* ~30% maior */
             font-weight: bold;
             color: white;
             text-align: center;
             z-index: 4;
-            padding: 0 20px;
+            word-wrap: break-word;
         }
     </style>
 </head>
