@@ -8,43 +8,49 @@
         body {
             margin: 0;
             background-color: black;
-            overflow: hidden;
-        }
-        .frame {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
-            background: url('https://raw.githubusercontent.com/playnatela/playnatela-rss/main/moldura.png') no-repeat center center;
-            background-size: cover;
+            overflow: hidden;
+            position: relative;
         }
         #news-image {
             position: absolute;
-            top: 10%;
-            left: 6%;
-            width: 88%;
-            height: 80%;
-            object-fit: cover;
-            border: none;
-        }
-        .title {
-            position: absolute;
-            bottom: 0;
+            top: 0;
+            left: 0;
             width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('moldura.png') no-repeat center center;
+            background-size: contain;
+            z-index: 2;
+        }
+        #news-title {
+            position: absolute;
+            bottom: 60px; /* ajustado para o espaço visível */
+            width: 80%;   /* ajustado para não ultrapassar os limites */
             text-align: center;
-            background: rgba(0,0,0,0.7);
-            padding: 15px;
             font-size: 2em;
+            font-weight: bold;
             color: white;
+            z-index: 3;
+            padding: 0 10px;
         }
     </style>
 </head>
 <body>
-    <div class="frame">
-        <img id="news-image" src="" alt="Imagem da Notícia">
-        <div class="title" id="news-title"></div>
-    </div>
+    <img id="news-image" src="" alt="Imagem da Notícia">
+    <div id="overlay"></div>
+    <div id="news-title"></div>
 
     <script>
         const rssUrl = 'https://raw.githubusercontent.com/playnatela/playnatela-rss/main/webterra_rss_v2_4.xml';
@@ -67,10 +73,22 @@
 
                 news = Array.from(items).map(item => {
                     const title = item.querySelector('title').textContent;
+
                     const contentEncoded = item.querySelector('content\\:encoded')?.textContent ||
                                            item.getElementsByTagName('content:encoded')[0]?.textContent || '';
+
+                    let imageUrl = '';
                     let imgMatch = contentEncoded.match(/<img[^>]*src=["']([^"']+)["']/i);
-                    let imageUrl = imgMatch ? imgMatch[1] : '';
+
+                    if (!imgMatch) {
+                        const rawDescription = item.querySelector('description')?.textContent || '';
+                        const decodedDescription = decodeHtml(rawDescription);
+                        imgMatch = decodedDescription.match(/<img[^>]*src=["']([^"']+)["']/i);
+                    }
+
+                    if (imgMatch) {
+                        imageUrl = imgMatch[1];
+                    }
 
                     return { title, imageUrl };
                 }).filter(n => n.imageUrl);
@@ -93,7 +111,7 @@
             document.getElementById('news-image').src = imageUrl;
 
             currentIndex = (currentIndex + 1) % news.length;
-            setTimeout(showNews, 7500);
+            setTimeout(showNews, 7500); // 7,5 segundos
         }
 
         fetchRSS();
