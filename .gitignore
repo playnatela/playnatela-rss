@@ -1,0 +1,18 @@
+# Ignorar tudo
+*
+
+# Mas NÃO ignorar estes:
+!.gitignore
+!webterra_rss_v2_4.xml
+!requirements.txt
+!webterra_rss_v2_4.py
+
+# Ignorar pastas ocultas do Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignorar ambientes virtuais
+venv/
+.env/
