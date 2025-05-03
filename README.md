@@ -1,5 +1,3 @@
-Aqui está um modelo pronto de README.md para seu repositório playnatela-rss no GitHub:
-
 # PlayNaTela RSS
 
 Este projeto exibe as últimas notícias do site WebTerra no formato de um visor automático para telas (digital signage).
@@ -59,5 +57,3 @@ Além disso, é possível rodar manualmente em [Actions → update-rss → Run w
 ---
 
 **Siga o projeto e deixe uma estrela!**
-
-Se quiser, posso já gerar o arquivo .md pronto pra você subir no repositório. Quer?
