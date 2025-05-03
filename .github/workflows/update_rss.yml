@@ -2,8 +2,8 @@ name: Atualizar RSS
 
 on:
   schedule:
-    - cron: '0 6,15,22 * * *'  # 03h BRT → 06h UTC, 12h BRT → 15h UTC, 19h BRT → 22h UTC
-  workflow_dispatch:         # permite rodar manualmente no GitHub
+    - cron: '0 6,15,22 * * *'  # 03:00, 12:00 e 19:00 BRT (UTC+3)
+  workflow_dispatch:           # permite rodar manualmente no GitHub
 
 jobs:
   update-rss:
@@ -31,5 +31,5 @@ jobs:
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add webterra_rss_v2_4.xml
-        git commit -m "🔄 Atualização automática do RSS"
+        git commit -m "🔄 Atualização automática do RSS em $(date '+%Y-%m-%d %H:%M:%S')"
         git push
