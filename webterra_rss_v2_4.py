@@ -5,7 +5,7 @@ from datetime import datetime
 import pytz
 
 # Configuração
-rss_url = 'https://webterra.com.br/wp-json/wp/v2/posts?per_page=10&_embed'
+rss_url = 'https://webterra.com.br/wp-json/wp/v2/posts?per_page=20&_embed'
 
 # Gera feed
 fg = FeedGenerator()
