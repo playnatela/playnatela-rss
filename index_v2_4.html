@@ -26,14 +26,10 @@
         z-index: 1;
     }
     @media (max-width: 768px) {
-        #news-image {
-            object-position: center 30%;
-        }
+        #news-image { object-position: center 30%; }
     }
     @media (max-width: 480px) {
-        #news-image {
-            object-position: center 40%;
-        }
+        #news-image { object-position: center 40%; }
     }
     #overlay {
         position: absolute;
@@ -51,58 +47,54 @@
         bottom: 0;
         left: 0;
         width: 100%;
+        height: auto;
         background: rgba(0, 0, 0, 0.8);
         z-index: 2;
         box-sizing: border-box;
         display: flex;
         align-items: center;
-        padding: 10px 40px;
+        padding: 20px 40px;
     }
     #news-logo {
-        height: 80px; /* dobra o tamanho da logo */
-        margin-right: 20px;
+        height: 80px;
         flex-shrink: 0;
     }
     #news-title {
-        font-size: 2.4em;
+        font-size: 2.6em;
         font-weight: bold;
         color: white;
         text-align: left;
         word-wrap: break-word;
         flex: 1;
         display: -webkit-box;
-        -webkit-line-clamp: 2;  /* limite visual para 2 linhas */
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
         text-overflow: ellipsis;
-        white-space: normal; /* permite quebra de linha */
-        line-height: 1.2em;
-        max-height: 2.4em; /* 2 linhas de altura */
+        white-space: normal;
+        margin-left: 40px; /* metade do logo (80px / 2) */
     }
     @media (max-width: 768px) {
-        #news-logo {
-            height: 60px;
-            margin-right: 15px;
-        }
+        #news-logo { height: 60px; }
         #news-title {
             font-size: 2em;
-            max-height: 2.4em;
+            margin-left: 30px; /* metade de 60px */
         }
     }
     @media (max-width: 480px) {
         #title-background {
             flex-direction: column;
             align-items: center;
-            text-align: center;
+            padding: 10px;
         }
         #news-logo {
             height: 50px;
-            margin: 0 0 5px 0;
+            margin: 0 0 10px 0;
         }
         #news-title {
             font-size: 1.6em;
             text-align: center;
-            max-height: none; /* libera no mobile */
+            margin-left: 0; /* zerar no mobile para centralizar */
         }
     }
 </style>
@@ -119,7 +111,6 @@
     const rssUrl = 'https://raw.githubusercontent.com/playnatela/playnatela-rss/main/webterra_rss_v2_4.xml';
     let news = [];
     let currentIndex = 0;
-    const blacklist = ['ladrão', 'furto', 'preso', 'presa', 'webterra'];
 
     async function fetchRSS() {
         try {
@@ -137,25 +128,20 @@
 
             news = Array.from(items).map(item => {
                 const title = item.querySelector('title').textContent;
-
                 const contentEncoded = item.querySelector('content\\:encoded')?.textContent ||
                                        item.getElementsByTagName('content:encoded')[0]?.textContent || '';
 
                 let imageUrl = '';
                 let imgMatch = contentEncoded.match(/<img[^>]*src=["']([^"']+)["']/i);
-
                 if (!imgMatch) {
                     const rawDescription = item.querySelector('description')?.textContent || '';
                     const decodedDescription = decodeHtml(rawDescription);
                     imgMatch = decodedDescription.match(/<img[^>]*src=["']([^"']+)["']/i);
                 }
-
-                if (imgMatch) {
-                    imageUrl = imgMatch[1];
-                }
+                if (imgMatch) { imageUrl = imgMatch[1]; }
 
                 return { title, imageUrl };
-            }).filter(n => n.imageUrl && !blacklist.some(word => n.title.toLowerCase().includes(word)));
+            }).filter(n => n.imageUrl);
 
             if (news.length === 0) {
                 document.getElementById('news-title').textContent = 'Nenhuma notícia com imagem encontrada.';
