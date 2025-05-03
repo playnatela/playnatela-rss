@@ -22,7 +22,7 @@ response = requests.get(rss_url)
 posts = response.json()
 
 # Filtrar palavras proibidas
-blacklist = ['morte', 'morre', 'acidente', 'vítima', 'vítimas', 'droga', 'drogas', 'maconha', 'polícia']
+blacklist = ['morte', 'morre', 'acidente', 'vítima', 'vítimas', 'droga', 'drogas', 'maconha', 'polícia', 'furto', 'preso', 'presa', 'webterra']
 filtered_posts = [post for post in posts if not any(word in post['title']['rendered'].lower() for word in blacklist)]
 
 for post in filtered_posts:
