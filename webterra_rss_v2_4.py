@@ -33,6 +33,7 @@ blacklist = [
     'facão', 'facões', 'incêndio', 'incêndios', 'sequestro', 'sequestros',
     'desaparecido', 'desaparecida', 'desaparecidos', 'desaparecidas'
 ]
+
 filtered_posts = [post for post in posts if not any(word in post['title']['rendered'].lower() for word in blacklist)]
 
 for post in filtered_posts:
@@ -45,26 +46,29 @@ for post in filtered_posts:
     # Inicializa a imagem principal
     main_img_url = ''
 
-    # Tenta pegar diretamente do conteúdo
+    # Tenta pegar diretamente do conteúdo, filtrando por domínio webterra.com.br
     img_urls = []
     for img in soup.find_all('img'):
         if img.has_attr('srcset'):
             srcset = img['srcset'].split(',')
             largest_img = srcset[-1].strip().split(' ')[0]
-            img_urls.append(largest_img)
+            if 'webterra.com.br' in largest_img:
+                img_urls.append(largest_img)
         elif img.has_attr('src'):
-            img_urls.append(img['src'])
+            if 'webterra.com.br' in img['src']:
+                img_urls.append(img['src'])
 
     if img_urls:
         main_img_url = img_urls[0]
     else:
-        # Busca a imagem destacada na página do artigo
+        # Busca a imagem destacada na página do artigo (com filtro de domínio)
         try:
             page_response = requests.get(link, timeout=5)
             page_soup = BeautifulSoup(page_response.text, 'html.parser')
             highlight_img = page_soup.find('img', class_='attachment-pixwell_780x0-2x')
             if highlight_img and highlight_img.has_attr('src'):
-                main_img_url = highlight_img['src']
+                if 'webterra.com.br' in highlight_img['src']:
+                    main_img_url = highlight_img['src']
         except Exception as e:
             print(f"⚠ Erro ao buscar imagem destacada de {link}: {e}")
 
@@ -86,4 +90,3 @@ for post in filtered_posts:
 # Salvar arquivo
 fg.rss_file('webterra_rss_v2_4.xml')
 print("✅ XML gerado com sucesso: webterra_rss_v2_4.xml")
-
