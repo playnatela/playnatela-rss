@@ -25,19 +25,16 @@
             object-position: center 20%;
             z-index: 1;
         }
-
-        /* Em telas menores, desce mais a imagem */
-@media (max-width: 768px) {
-    #news-image {
-        object-position: center 30%;
-    }
-}
-
-@media (max-width: 480px) {
-    #news-image {
-        object-position: center 40%;
-    }
-}
+        @media (max-width: 768px) {
+            #news-image {
+                object-position: center 30%;
+            }
+        }
+        @media (max-width: 480px) {
+            #news-image {
+                object-position: center 40%;
+            }
+        }
         #overlay {
             position: absolute;
             top: 0;
@@ -51,27 +48,60 @@
         }
         #title-background {
             position: absolute;
-            bottom: 0px; /* sobe para dentro do espaço vazado */
+            bottom: 0;
             left: 0;
             width: 100%;
-            padding: 20px 40px; /* padding vertical e horizontal */
-            background: rgba(0, 0, 0, 0.8); /* half-shade escuro */
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.8);
             z-index: 2;
             box-sizing: border-box;
+            display: flex;
+            align-items: center;
+        }
+        #news-logo {
+            height: 50px;
+            margin-right: 20px;
+            flex-shrink: 0;
         }
         #news-title {
-            font-size: 2.6em; /* ~30% maior */
+            font-size: 2.6em;
             font-weight: bold;
             color: white;
-            text-align: center;
+            text-align: left;
             z-index: 4;
             word-wrap: break-word;
+            flex: 1;
+        }
+        @media (max-width: 768px) {
+            #news-title {
+                font-size: 2em;
+            }
+            #news-logo {
+                height: 40px;
+                margin-right: 15px;
+            }
+        }
+        @media (max-width: 480px) {
+            #title-background {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            #news-logo {
+                margin: 0 0 10px 0;
+                height: 40px;
+            }
+            #news-title {
+                font-size: 1.8em;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
     <img id="news-image" src="" alt="Imagem da Notícia">
     <div id="title-background">
+        <img id="news-logo" src="LOGO-WT.webp" alt="WebTerra Logo">
         <div id="news-title"></div>
     </div>
     <div id="overlay"></div>
@@ -135,7 +165,7 @@
             document.getElementById('news-image').src = imageUrl;
 
             currentIndex = (currentIndex + 1) % news.length;
-            setTimeout(showNews, 7500); // 7,5 segundos
+            setTimeout(showNews, 7500);
         }
 
         fetchRSS();
