@@ -26,6 +26,9 @@ jobs:
     - name: Rodar script Python
       run: python webterra_rss_v2_4.py
 
+    - name: Validar XML gerado
+      run: xmllint --noout webterra_rss_v2_4.xml
+
     - name: Commit e push RSS atualizado
       run: |
         git config user.name "github-actions[bot]"
