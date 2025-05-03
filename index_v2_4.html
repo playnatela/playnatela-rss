@@ -1,174 +1,182 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlayNaTela RSS Viewer</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            position: relative;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PlayNaTela RSS Viewer</title>
+<style>
+    body {
+        margin: 0;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+    }
+    #news-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 20%;
+        z-index: 1;
+    }
+    @media (max-width: 768px) {
         #news-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center 20%;
-            z-index: 1;
+            object-position: center 30%;
         }
-        @media (max-width: 768px) {
-            #news-image {
-                object-position: center 30%;
-            }
+    }
+    @media (max-width: 480px) {
+        #news-image {
+            object-position: center 40%;
         }
-        @media (max-width: 480px) {
-            #news-image {
-                object-position: center 40%;
-            }
-        }
-        #overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('moldura.png') no-repeat center center;
-            background-size: 100% 100%;
-            z-index: 3;
-            pointer-events: none;
-        }
+    }
+    #overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('moldura.png') no-repeat center center;
+        background-size: 100% 100%;
+        z-index: 3;
+        pointer-events: none;
+    }
+    #title-background {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100px; /* tamanho fixo */
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        padding: 0 40px;
+    }
+    #news-logo {
+        height: 80px; /* logo dobrada */
+        margin-right: 20px;
+        flex-shrink: 0;
+    }
+    #news-title {
+        font-size: 2.6em;
+        font-weight: bold;
+        color: white;
+        text-align: left;
+        word-wrap: break-word;
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    @media (max-width: 768px) {
         #title-background {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 40px;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 2;
-            box-sizing: border-box;
-            display: flex;
+            height: 80px;
+            padding: 0 20px;
+        }
+        #news-logo {
+            height: 60px;
+            margin-right: 15px;
+        }
+        #news-title {
+            font-size: 2em;
+        }
+    }
+    @media (max-width: 480px) {
+        #title-background {
+            height: 70px;
+            flex-direction: column;
             align-items: center;
+            padding: 10px;
         }
         #news-logo {
             height: 50px;
-            margin-right: 20px;
-            flex-shrink: 0;
+            margin: 0 0 5px 0;
         }
         #news-title {
-            font-size: 2.6em;
-            font-weight: bold;
-            color: white;
-            text-align: left;
-            z-index: 4;
-            word-wrap: break-word;
-            flex: 1;
+            font-size: 1.6em;
+            text-align: center;
         }
-        @media (max-width: 768px) {
-            #news-title {
-                font-size: 2em;
-            }
-            #news-logo {
-                height: 40px;
-                margin-right: 15px;
-            }
-        }
-        @media (max-width: 480px) {
-            #title-background {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            #news-logo {
-                margin: 0 0 10px 0;
-                height: 40px;
-            }
-            #news-title {
-                font-size: 1.8em;
-                text-align: center;
-            }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
-    <img id="news-image" src="" alt="Imagem da Notícia">
-    <div id="title-background">
-        <img id="news-logo" src="LOGO-WT.webp" alt="WebTerra Logo">
-        <div id="news-title"></div>
-    </div>
-    <div id="overlay"></div>
+<img id="news-image" src="" alt="Imagem da Notícia">
+<div id="title-background">
+    <img id="news-logo" src="LOGO-WT.webp" alt="WebTerra Logo">
+    <div id="news-title"></div>
+</div>
+<div id="overlay"></div>
 
-    <script>
-        const rssUrl = 'https://raw.githubusercontent.com/playnatela/playnatela-rss/main/webterra_rss_v2_4.xml';
-        let news = [];
-        let currentIndex = 0;
+<script>
+    const rssUrl = 'https://raw.githubusercontent.com/playnatela/playnatela-rss/main/webterra_rss_v2_4.xml';
+    let news = [];
+    let currentIndex = 0;
 
-        async function fetchRSS() {
-            try {
-                const response = await fetch(rssUrl);
-                const text = await response.text();
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(text, 'application/xml');
-                const items = xml.querySelectorAll('item');
+    async function fetchRSS() {
+        try {
+            const response = await fetch(rssUrl);
+            const text = await response.text();
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(text, 'application/xml');
+            const items = xml.querySelectorAll('item');
 
-                function decodeHtml(html) {
-                    const txt = document.createElement('textarea');
-                    txt.innerHTML = html;
-                    return txt.value;
-                }
-
-                news = Array.from(items).map(item => {
-                    const title = item.querySelector('title').textContent;
-
-                    const contentEncoded = item.querySelector('content\\:encoded')?.textContent ||
-                                           item.getElementsByTagName('content:encoded')[0]?.textContent || '';
-
-                    let imageUrl = '';
-                    let imgMatch = contentEncoded.match(/<img[^>]*src=["']([^"']+)["']/i);
-
-                    if (!imgMatch) {
-                        const rawDescription = item.querySelector('description')?.textContent || '';
-                        const decodedDescription = decodeHtml(rawDescription);
-                        imgMatch = decodedDescription.match(/<img[^>]*src=["']([^"']+)["']/i);
-                    }
-
-                    if (imgMatch) {
-                        imageUrl = imgMatch[1];
-                    }
-
-                    return { title, imageUrl };
-                }).filter(n => n.imageUrl);
-
-                if (news.length === 0) {
-                    document.getElementById('news-title').textContent = 'Nenhuma notícia com imagem encontrada.';
-                    return;
-                }
-
-                showNews();
-            } catch (error) {
-                document.getElementById('news-title').textContent = 'Erro ao carregar RSS.';
-                console.error(error);
+            function decodeHtml(html) {
+                const txt = document.createElement('textarea');
+                txt.innerHTML = html;
+                return txt.value;
             }
+
+            news = Array.from(items).map(item => {
+                const title = item.querySelector('title').textContent;
+
+                const contentEncoded = item.querySelector('content\\:encoded')?.textContent ||
+                                       item.getElementsByTagName('content:encoded')[0]?.textContent || '';
+
+                let imageUrl = '';
+                let imgMatch = contentEncoded.match(/<img[^>]*src=["']([^"']+)["']/i);
+
+                if (!imgMatch) {
+                    const rawDescription = item.querySelector('description')?.textContent || '';
+                    const decodedDescription = decodeHtml(rawDescription);
+                    imgMatch = decodedDescription.match(/<img[^>]*src=["']([^"']+)["']/i);
+                }
+
+                if (imgMatch) {
+                    imageUrl = imgMatch[1];
+                }
+
+                return { title, imageUrl };
+            }).filter(n => n.imageUrl);
+
+            if (news.length === 0) {
+                document.getElementById('news-title').textContent = 'Nenhuma notícia com imagem encontrada.';
+                return;
+            }
+
+            showNews();
+        } catch (error) {
+            document.getElementById('news-title').textContent = 'Erro ao carregar RSS.';
+            console.error(error);
         }
+    }
 
-        function showNews() {
-            const { title, imageUrl } = news[currentIndex];
-            document.getElementById('news-title').textContent = title;
-            document.getElementById('news-image').src = imageUrl;
+    function showNews() {
+        const { title, imageUrl } = news[currentIndex];
+        document.getElementById('news-title').textContent = title;
+        document.getElementById('news-image').src = imageUrl;
 
-            currentIndex = (currentIndex + 1) % news.length;
-            setTimeout(showNews, 7500);
-        }
+        currentIndex = (currentIndex + 1) % news.length;
+        setTimeout(showNews, 7500);
+    }
 
-        fetchRSS();
-    </script>
+    fetchRSS();
+</script>
 </body>
 </html>
