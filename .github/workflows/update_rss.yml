@@ -1,0 +1,35 @@
+name: Atualizar RSS
+
+on:
+  schedule:
+    - cron: '0 3,15 * * *'  # 03:00 e 15:00 UTC → 00:00 e 12:00 BRT
+  workflow_dispatch:         # permite rodar manualmente no GitHub
+
+jobs:
+  update-rss:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v3
+
+    - name: Configurar Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Instalar dependências
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Rodar script Python
+      run: python webterra_rss_v2_4.py
+
+    - name: Commit e push RSS atualizado
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add webterra_rss_v2_4.xml
+        git commit -m "🔄 Atualização automática do RSS"
+        git push
