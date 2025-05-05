@@ -25,7 +25,7 @@ if response.status_code != 200:
     exit()
 posts = response.json()
 
-# Ordenar por data decrescente explicitamente
+# Ordenar por data decrescente explicitamente (primeira ordenação geral)
 posts = sorted(posts, key=lambda x: x.get('date', ''), reverse=True)
 
 # Filtrar palavras proibidas
@@ -42,6 +42,9 @@ blacklist = [
 ]
 
 filtered_posts = [post for post in posts if not any(word in post.get('title', {}).get('rendered', '').lower() for word in blacklist)]
+
+# ⚠ Ordenar novamente após filtrar
+filtered_posts = sorted(filtered_posts, key=lambda x: x.get('date', ''), reverse=True)
 
 for post in filtered_posts:
     title_html = post.get('title', {}).get('rendered', '')
