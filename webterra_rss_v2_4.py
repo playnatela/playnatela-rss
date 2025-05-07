@@ -9,6 +9,13 @@ from dateutil import parser
 rss_url = 'https://webterra.com.br/wp-json/wp/v2/posts?per_page=20&_embed'
 headers = {'User-Agent': 'Mozilla/5.0'}
 
+# Função segura para parse de data
+def safe_parse_date(date_str):
+    try:
+        return parser.parse(date_str)
+    except Exception:
+        return datetime(1970, 1, 1)
+
 # Gera feed
 fg = FeedGenerator()
 fg.load_extension('dc', 'content')
@@ -26,8 +33,8 @@ if response.status_code != 200:
     exit()
 posts = response.json()
 
-# Ordenar por data decrescente usando parser
-posts = sorted(posts, key=lambda x: parser.parse(x.get('date', '1970-01-01')), reverse=True)
+# Ordenar por data decrescente usando safe_parse_date
+posts.sort(key=lambda x: safe_parse_date(x.get('date', '1970-01-01')), reverse=True)
 
 # Filtrar palavras proibidas
 blacklist = [
@@ -44,8 +51,8 @@ blacklist = [
 
 filtered_posts = [post for post in posts if not any(word in post.get('title', {}).get('rendered', '').lower() for word in blacklist)]
 
-# Ordenar novamente após filtro usando parser
-filtered_posts = sorted(filtered_posts, key=lambda x: parser.parse(x.get('date', '1970-01-01')), reverse=True)
+# Ordenar novamente após filtro
+filtered_posts.sort(key=lambda x: safe_parse_date(x.get('date', '1970-01-01')), reverse=True)
 
 for post in filtered_posts:
     title_html = post.get('title', {}).get('rendered', '')
