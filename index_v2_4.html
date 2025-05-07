@@ -72,13 +72,13 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: normal;
-        margin-left: 40px; /* metade do logo (80px / 2) */
+        margin-left: 40px;
     }
     @media (max-width: 768px) {
         #news-logo { height: 60px; }
         #news-title {
             font-size: 2em;
-            margin-left: 30px; /* metade de 60px */
+            margin-left: 30px;
         }
     }
     @media (max-width: 480px) {
@@ -92,9 +92,9 @@
             margin: 0 0 10px 0;
         }
         #news-title {
-            font-size: 1.6em;
+            font-size: 1.2em;
             text-align: center;
-            margin-left: 0; /* zerar no mobile para centralizar */
+            margin-left: 0;
         }
     }
 </style>
@@ -143,12 +143,8 @@
                 return { title, imageUrl };
             }).filter(n => n.imageUrl);
 
+            // Inverte a ordem das notícias
             news.reverse();
-
-            if (news.length === 0) {
-                document.getElementById('news-title').textContent = 'Nenhuma notícia com imagem encontrada.';
-                return;
-            }
 
             showNews();
         } catch (error) {
@@ -166,7 +162,21 @@
         setTimeout(showNews, 7500);
     }
 
-    fetchRSS();
+    // Troca a moldura para vertical se a tela estiver em modo retrato
+    function updateOverlayImage() {
+        const overlay = document.getElementById('overlay');
+        if (window.innerHeight > window.innerWidth) {
+            overlay.style.backgroundImage = "url('moldura-vert.png')";
+        } else {
+            overlay.style.backgroundImage = "url('moldura.png')";
+        }
+    }
+
+    window.addEventListener('resize', updateOverlayImage);
+    window.addEventListener('load', () => {
+        updateOverlayImage();
+        fetchRSS();
+    });
 </script>
 </body>
 </html>
