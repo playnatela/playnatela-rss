@@ -143,6 +143,8 @@
                 return { title, imageUrl };
             }).filter(n => n.imageUrl);
 
+            news.reverse();
+
             if (news.length === 0) {
                 document.getElementById('news-title').textContent = 'Nenhuma notícia com imagem encontrada.';
                 return;
