@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from feedgen.feed import FeedGenerator
 from datetime import datetime
 import pytz
+from dateutil import parser
 
 # Configuração
 rss_url = 'https://webterra.com.br/wp-json/wp/v2/posts?per_page=20&_embed'
@@ -25,8 +26,8 @@ if response.status_code != 200:
     exit()
 posts = response.json()
 
-# Ordenar por data decrescente explicitamente
-posts = sorted(posts, key=lambda x: x.get('date', ''), reverse=True)
+# Ordenar por data decrescente usando parser
+posts = sorted(posts, key=lambda x: parser.parse(x.get('date', '1970-01-01')), reverse=True)
 
 # Filtrar palavras proibidas
 blacklist = [
@@ -43,8 +44,8 @@ blacklist = [
 
 filtered_posts = [post for post in posts if not any(word in post.get('title', {}).get('rendered', '').lower() for word in blacklist)]
 
-# Ordenar novamente após filtro (garantia extra)
-filtered_posts = sorted(filtered_posts, key=lambda x: x.get('date', ''), reverse=True)
+# Ordenar novamente após filtro usando parser
+filtered_posts = sorted(filtered_posts, key=lambda x: parser.parse(x.get('date', '1970-01-01')), reverse=True)
 
 for post in filtered_posts:
     title_html = post.get('title', {}).get('rendered', '')
