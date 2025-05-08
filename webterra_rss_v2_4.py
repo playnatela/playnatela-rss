@@ -36,7 +36,7 @@ posts = response.json()
 # Ordenar por data decrescente usando safe_parse_date
 posts.sort(key=lambda x: safe_parse_date(x.get('date', '1970-01-01')), reverse=True)
 
-# Filtrar palavras proibidas
+# Blacklist de palavras
 blacklist = [
     'morte', 'morre', 'acidente', 'vítima', 'vítimas', 'droga', 'drogas',
     'maconha', 'polícia', 'furto', 'preso', 'presa', 'webterra',
@@ -46,10 +46,27 @@ blacklist = [
     'tiroteio', 'tiroteios', 'facada', 'facadas', 'arma', 'armas',
     'baleado', 'baleada', 'baleados', 'baleadas',
     'facão', 'facões', 'incêndio', 'incêndios', 'sequestro', 'sequestros',
-    'desaparecido', 'desaparecida', 'desaparecidos', 'desaparecidas'
+    'desaparecido', 'desaparecida', 'desaparecidos', 'desaparecidas',
+    'receita', 'sobremesa', 'culinária', 'culinaria', 'reflexão', 'poesia',
+    'opinião', 'opinião', 'crônica', 'cronica', 'opinião', 'opiniao'
 ]
 
-filtered_posts = [post for post in posts if not any(word in post.get('title', {}).get('rendered', '').lower() for word in blacklist)]
+# Função para verificar se contém palavra proibida
+def contains_blacklisted_word(text):
+    text_lower = text.lower()
+    return any(word in text_lower for word in blacklist)
+
+# Filtrar posts
+filtered_posts = []
+for post in posts:
+    title = BeautifulSoup(post.get('title', {}).get('rendered', ''), 'html.parser').get_text()
+    excerpt = BeautifulSoup(post.get('excerpt', {}).get('rendered', ''), 'html.parser').get_text()
+    content = BeautifulSoup(post.get('content', {}).get('rendered', ''), 'html.parser').get_text()
+
+    combined_text = f"{title} {excerpt} {content}"
+
+    if not contains_blacklisted_word(combined_text):
+        filtered_posts.append(post)
 
 # Ordenar novamente após filtro
 filtered_posts.sort(key=lambda x: safe_parse_date(x.get('date', '1970-01-01')), reverse=True)
@@ -67,9 +84,8 @@ for post in filtered_posts:
 
     # Inicializa a imagem principal
     main_img_url = ''
-
-    # Tenta pegar diretamente do conteúdo
     img_urls = []
+
     for img in soup.find_all('img'):
         if img.has_attr('srcset'):
             srcset = img['srcset'].split(',')
@@ -92,13 +108,11 @@ for post in filtered_posts:
         except Exception as e:
             print(f"⚠ Erro ao buscar imagem destacada de {link}: {e}")
 
-    # Montar HTML com imagem principal + conteúdo
     entry_content = ''
     if main_img_url:
         entry_content += f'<img src="{main_img_url}" /><br>'
     entry_content += str(soup)
 
-    # Criar item do feed
     fe = fg.add_entry()
     fe.id(str(post.get('id', '')))
     fe.title(title)
