@@ -48,7 +48,7 @@ blacklist = [
     'facão', 'facões', 'incêndio', 'incêndios', 'sequestro', 'sequestros',
     'desaparecido', 'desaparecida', 'desaparecidos', 'desaparecidas',
     'receita', 'sobremesa', 'culinária', 'culinaria', 'reflexão', 'poesia',
-    'opinião', 'opinião', 'crônica', 'cronica', 'opinião', 'opiniao'
+    'opinião', 'opinião', 'crônica', 'cronica', 'coluna', 'ingrediente', 'ingredientes'
 ]
 
 # Função para verificar se contém palavra proibida
