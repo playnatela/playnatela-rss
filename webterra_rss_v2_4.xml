@@ -1,56 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>WebTerra - Norte de Minas</title><link>https://webterra.com.br/categoria/norte-de-minas</link><description>Notícias do norte de Minas do WebTerra</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><language>pt-br</language><lastBuildDate>Sat, 28 Feb 2026 15:13:16 +0000</lastBuildDate><item><title>North x Uberlândia: veja como ficará o trânsito neste final de semana no bairro João Botelho</title><link>https://webterra.com.br/2026/02/26/north-x-uberlandia-veja-como-vai-ficar-o-transito-neste-final-de-semana-no-bairro-joao-botelho/</link><description>A partida será às 17h deste domingo (01) no Estádio Juvêncio Augusto Soares, em Montes Claros.
-</description><content:encoded><![CDATA[<img src="https://webterra.com.br/wp-content/uploads/2026/02/WhatsApp-Image-2026-02-26-at-16.31.26-scaled-e1772136765709.jpeg" /><br><p>A MCTrans divulgou, nesta quinta-feira (26), os detalhes sobre a operação especial de trânsito que vai ocorrer nos próximos dias, em razão da partida entre North e Uberlândia.</p>
-<p>A partida será às 17h deste domingo (01) no Estádio Juvêncio Augusto Soares, no bairro João Botelho.</p>
-<p>A ação inclui proibições de estacionamento, ajustes viários e áreas destinadas ao embarque e desembarque, com início neste sábado (28), véspera do jogo.</p>
-<blockquote><p><em>“O objetivo é garantir segurança, fluidez e organização no entorno do evento, preservando o deslocamento de moradores e torcedores”, informou.</em></p></blockquote>
-<h2>Área Controlada</h2>
-<p>Das 12 às 20h do dia 01/03, a área compreendida pelos trechos das seguintes ruas será fechada para o trânsito de veículos de qualquer natureza.</p>
-<blockquote><p><em>“Solicitamos aos moradores da área controlada que otimizem seus deslocamentos nos horários e dias de jogos, e que, na necessidade de se deslocar, portem a credencial ou comprovante de residência”, informou.</em></p></blockquote>
-<p>– Rua Zé do Piá, entre av. Leonel Beirão de Jesus e rua Emboabas;<br/>
-– Rua I, a partir da rua Rosalvo Carvalho;<br/>
-– Rua Fredimar Dangelis, entre rua Rosalvo Carvalho e rua Emboabas;<br/>
-– Rua Rosalvo Carvalho;<br/>
-– Rua Guaporé, entre av. Leonel Beirão de Jesus e rua Emboabas;<br/>
-– Rua Itambé, entre rua Guaporé e rua Iguaçú;<br/>
-– Rua Capelinha, entre rua Guaporé e rua Iguaçú;<br/>
-– Rua Carandaí, entre rua Guaporé e rua Iguaçú;<br/>
-– Rua Warley Salomé, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua Francisco Dias da Silva, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua Capelinha, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua Durvalino Luiz dos Reis, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua Carandaí, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua B, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua Aurelino Martins Freitas, entre rua Zé do Píá e rua Francisco Assis Souza.</p>
-<h2>Proibição de estacionamento</h2>
-<ul>
-<li>Das 22h do dia 28/02 às 20h do dia 01/03:</li>
-</ul>
-<p>– Rua Zé do Piá, entre av. Leonel Beirão de Jesus e rua Rosalvo Carvalho;<br/>
-– Rua I, a partir da rua Rosalvo Carvalho;<br/>
-– Rua Fredmar Dangelis, entre rua Rosalvo Carvalho e rua Emboabas;<br/>
-– Rua Rosalvo Carvalho; e,<br/>
-– Rua Guaporé, entre av. Leonel Beirão de Jesus e rua Rosalvo Carvalho.</p>
-<ul>
-<li>Das 04h às 20h do dia 01/03:</li>
-</ul>
-<p>– Rua Zé do Piá, entre rua Rosalvo Carvalho e rua Emboabas;<br/>
-– Rua Guaporé, entre rua Rosalvo Carvalho e rua Emboabas;<br/>
-– Rua Itambé, entre rua Guaporé e rua Iguaçú;<br/>
-– Rua Capelinha, entre rua Guaporé e rua Iguaçú;<br/>
-– Rua Carandaí, entre rua Guaporé e rua Iguaçú;<br/>
-– Rua Warley Salomé, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua Francisco Dias da Silva, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua Capelinha, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua Durvalino Luiz dos Reis, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua Carandaí, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua B, entre rua Zé do Píá e rua Francisco Assis Souza;<br/>
-– Rua Aurelino Martins Freitas, entre rua Zé do Píá e rua Francisco Assis Souza.</p>
-<h2>Áreas destinadas ao embarque e desembarque</h2>
-<p>– Rua Emboabas, próximo à rua Zé do Piá;<br/>
-– Avenida Leonel Beirão de Jesus, entre rua Guaporé e rua Zé do Piá;<br/>
-– Avenida Leonel Beirão de Jesus, entre rua Antônio Oswaldo e rua Iguaçu;</p>
-]]></content:encoded><guid isPermaLink="false">204545</guid><pubDate>Thu, 26 Feb 2026 17:16:30 +0000</pubDate></item><item><title>Risco de deslizamento interdita casas e deixa famílias fora de imóveis em Rio Pardo de Minas</title><link>https://webterra.com.br/2026/02/27/risco-de-deslizamento-interdita-casas-e-deixa-familias-fora-de-imoveis-em-rio-pardo-de-minas/</link><description>Confira orientações essenciais para reduzir riscos e garantir a segurança em áreas suscetíveis a deslizamentos
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>WebTerra - Norte de Minas</title><link>https://webterra.com.br/categoria/norte-de-minas</link><description>Notícias do norte de Minas do WebTerra</description><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><language>pt-br</language><lastBuildDate>Sat, 28 Feb 2026 22:13:25 +0000</lastBuildDate><item><title>Risco de deslizamento interdita casas e deixa famílias fora de imóveis em Rio Pardo de Minas</title><link>https://webterra.com.br/2026/02/27/risco-de-deslizamento-interdita-casas-e-deixa-familias-fora-de-imoveis-em-rio-pardo-de-minas/</link><description>Confira orientações essenciais para reduzir riscos e garantir a segurança em áreas suscetíveis a deslizamentos
 </description><content:encoded><![CDATA[<img src="https://webterra.com.br/wp-content/uploads/2026/02/7a32466d-27b5-431e-89ec-0d8dd52941f9-scaled.jpeg" /><br><p>Na tarde desta quinta-feira (26), a Brigada Municipal de Rio Pardo de Minas foi acionada para vistoriar uma área com risco geológico de deslizamento de terra, no município de Rio Pardo de Minas, no Norte de Minas. A ação ocorreu após a identificação de sinais de movimentação do solo e comprometimento estrutural em uma das edificações.</p>
 <p><img alt="" class="alignnone size-medium wp-image-204562" data-smush-webp-fallback='{"src":"https:\/\/webterra.com.br\/wp-content\/uploads\/2026\/02\/7a32466d-27b5-431e-89ec-0d8dd52941f9-300x400.jpeg","srcset":"https:\/\/webterra.com.br\/wp-content\/uploads\/2026\/02\/7a32466d-27b5-431e-89ec-0d8dd52941f9-300x400.jpeg 300w, https:\/\/webterra.com.br\/wp-content\/uploads\/2026\/02\/7a32466d-27b5-431e-89ec-0d8dd52941f9-768x1024.jpeg 768w, https:\/\/webterra.com.br\/wp-content\/uploads\/2026\/02\/7a32466d-27b5-431e-89ec-0d8dd52941f9-1152x1536.jpeg 1152w, https:\/\/webterra.com.br\/wp-content\/uploads\/2026\/02\/7a32466d-27b5-431e-89ec-0d8dd52941f9-450x600.jpeg 450w, https:\/\/webterra.com.br\/wp-content\/uploads\/2026\/02\/7a32466d-27b5-431e-89ec-0d8dd52941f9-780x1040.jpeg 780w, https:\/\/webterra.com.br\/wp-content\/uploads\/2026\/02\/7a32466d-27b5-431e-89ec-0d8dd52941f9-640x853.jpeg 640w, https:\/\/webterra.com.br\/wp-content\/uploads\/2026\/02\/7a32466d-27b5-431e-89ec-0d8dd52941f9-150x200.jpeg 150w, https:\/\/webterra.com.br\/wp-content\/uploads\/2026\/02\/7a32466d-27b5-431e-89ec-0d8dd52941f9-scaled.jpeg 960w"}' decoding="async" height="400" loading="lazy" sizes="auto, (max-width: 300px) 100vw, 300px" src="https://webterra.com.br/wp-content/smush-webp/2026/02/7a32466d-27b5-431e-89ec-0d8dd52941f9-300x400.jpeg.webp" srcset="https://webterra.com.br/wp-content/smush-webp/2026/02/7a32466d-27b5-431e-89ec-0d8dd52941f9-300x400.jpeg.webp 300w, https://webterra.com.br/wp-content/smush-webp/2026/02/7a32466d-27b5-431e-89ec-0d8dd52941f9-768x1024.jpeg.webp 768w, https://webterra.com.br/wp-content/uploads/2026/02/7a32466d-27b5-431e-89ec-0d8dd52941f9-1152x1536.jpeg 1152w, https://webterra.com.br/wp-content/smush-webp/2026/02/7a32466d-27b5-431e-89ec-0d8dd52941f9-450x600.jpeg.webp 450w, https://webterra.com.br/wp-content/smush-webp/2026/02/7a32466d-27b5-431e-89ec-0d8dd52941f9-780x1040.jpeg.webp 780w, https://webterra.com.br/wp-content/smush-webp/2026/02/7a32466d-27b5-431e-89ec-0d8dd52941f9-640x853.jpeg.webp 640w, https://webterra.com.br/wp-content/smush-webp/2026/02/7a32466d-27b5-431e-89ec-0d8dd52941f9-150x200.jpeg.webp 150w, https://webterra.com.br/wp-content/uploads/2026/02/7a32466d-27b5-431e-89ec-0d8dd52941f9-scaled.jpeg 960w" width="300"/></p>
 <p>Durante a inspeção, foram constatadas três residências habitadas, onde viviam três famílias, além de um quarto imóvel desocupado. Diante das patologias estruturais e do risco potencial à segurança dos moradores, a Brigada acionou a <a href="chatgpt://generic-entity?number=0">Defesa Civil Municipal</a> para avaliação técnica complementar. Após análise conjunta, os imóveis foram interditados de forma preventiva.</p>
